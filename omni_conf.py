@@ -31,7 +31,8 @@ computers = {
     }
 }
 
-expts = ['MC_on', 'MC_off']
+#expts = ['MC_on', 'MC_off']
+expts = ['MC_on']
 comp = computers['rdf-comp']
 for expt in expts:
     comp['dirs']['work_' + expt] = '/nerc/n02/n02/mmuetz/um10.5_runs/20day/iUM_moisture_budget_{}/work'.format(expt)
@@ -108,7 +109,7 @@ for expt in expts:
     for bn, bv in zip(base_nodes, base_vars):
 	nodes[bn + '_' + expt] = {
 	    'type': 'from_group',
-	    'from_group': 'nc5_' + expt,
+	    'from_group': 'nc3_' + expt,
 	    'variable': bv,
 	    'process': 'domain_mean',
 	}
@@ -117,7 +118,7 @@ for expt in expts:
         'type': 'from_nodes',
         'from_nodes': [bn + '_' + expt for bn in base_nodes],
         'process': 'plot_moist_profile',
-	'process_kwargs': {'start_index': -48, 'end_index':None},
+	'process_kwargs': {'start_index': -24, 'end_index':None},
     }
 
 variables = {
