@@ -1,0 +1,6 @@
+*.pyc
+.*.swp
+.omni/
+logs/
+computer.txt
+
