@@ -62,7 +62,7 @@ for expt in expts:
     comp['dirs']['results_' + expt] = '/home/markmuetz/omni_output/iUM_moisture_budget/results_{}'.format(expt)
 
 
-batches = odict(('batch{}'.format(i), {'index': i}) for i in range(4))
+batches = odict(('batch{}'.format(i), {'index': i}) for i in range(6))
 groups = odict()
 ngroups = odict()
 nodes = odict()
@@ -134,6 +134,54 @@ for expt in expts:
 	'process_kwargs': {'start_index': -24, 'end_index':None},
     }
 
+    surf_base_nodes = ['precip_ts', 'shf_ts', 'lhf_ts', 'precip_conv_ts']
+    surf_base_vars = ['precip', 'shf', 'lhf']
+
+    groups['surf_timeseries_' + expt] = {
+        'type': 'nodes_process',
+        'base_dir': 'results_' + expt,
+        'batch': 'batch4',
+        'nodes': [bn + '_' + expt for bn in surf_base_nodes],
+    }
+
+    groups['surf_ts_plots_' + expt] = {
+        'type': 'nodes_process',
+        'base_dir': 'output',
+        'batch': 'batch5',
+        'nodes': ['surf_ts_plots_' + expt],
+    }
+
+    groups['surf_ts_means_' + expt] = {
+        'type': 'nodes_process',
+        'base_dir': 'output',
+        'batch': 'batch5',
+        'nodes': ['surf_ts_means_' + expt],
+    }
+
+    for bn, bv in zip(surf_base_nodes, surf_base_vars):
+	nodes[bn + '_' + expt] = {
+	    'type': 'from_group',
+	    'from_group': 'nc1_' + expt,
+	    'variable': bv,
+	    'process': 'domain_mean',
+	}
+
+    nodes['precip_conv_ts_' + expt] = {
+        'type': 'from_nodes',
+        'from_nodes': ['precip_ts_' + expt],
+        'process': 'convert_mass_to_energy_flux',
+    }
+    nodes['surf_ts_plots_' + expt] = {
+        'type': 'from_nodes',
+        'from_nodes': ['precip_conv_ts_' + expt, 'shf_ts_' + expt, 'lhf_ts_' + expt],
+        'process': 'plot_sensitivity_surf_timeseries',
+    }
+    nodes['surf_ts_means_' + expt] = {
+        'type': 'from_nodes',
+        'from_nodes': ['precip_conv_ts_' + expt, 'shf_ts_' + expt, 'lhf_ts_' + expt],
+        'process': 'last_five_day_mean',
+    }
+
 variables = {
     'q': {
 	'section': 0,
@@ -154,6 +202,18 @@ variables = {
     'q_incr_total': {
 	'section': 30,
 	'item': 182,
+    },
+    'precip': {
+        'section': 4,
+        'item': 203,
+    },
+    'shf': {
+        'section': 3,
+        'item': 217,
+    },
+    'lhf': {
+        'section': 3,
+        'item': 234,
     },
 }
     
