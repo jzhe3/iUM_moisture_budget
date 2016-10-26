@@ -31,8 +31,8 @@ computers = {
     }
 }
 
-#expts = ['MC_on', 'MC_off']
-expts = ['MC_on']
+expts = ['MC_on', 'MC_off']
+#expts = ['MC_on']
 comp = computers['rdf-comp']
 for expt in expts:
     comp['dirs']['work_' + expt] = '/nerc/n02/n02/mmuetz/um10.5_runs/20day/iUM_moisture_budget_{}/work'.format(expt)
