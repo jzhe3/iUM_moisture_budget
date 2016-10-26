@@ -17,11 +17,14 @@ computers = {
         }
     },
     'zerogravitas': {
-        'remote': 'rdf-comp',
-        'remote_address': 'mmuetz@login.rdf.ac.uk',
-        'remote_path': '/nerc/n02/n02/mmuetz/omnis/iUM_moisture_budget',
+        #'remote': 'rdf-comp',
+        #'remote_address': 'mmuetz@login.rdf.ac.uk',
+        #'remote_path': '/nerc/n02/n02/mmuetz/omnis/iUM_moisture_budget',
+        'remote': 'archer',
+        'remote_address': 'mmuetz@login.archer.ac.uk',
+        'remote_path': '/home/n02/n02/mmuetz/omnis/iUM_moisture_budget',
         'dirs': {
-            'output': '/home/markmuetz/omni_output/iUM_moisture_budget/output'
+            'output': '/home/markmuetz/Dropbox/omni_output/iUM_moisture_budget/output'
         }
     },
     'rdf-comp': {
