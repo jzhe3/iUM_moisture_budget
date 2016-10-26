@@ -28,6 +28,11 @@ computers = {
         'dirs': {
             'output': '/nerc/n02/n02/mmuetz/omni_output/iUM_moisture_budget/output',
         }
+    },
+    'archer': {
+        'dirs': {
+            'output': '/home/n02/n02/mmuetz/nerc/omni_output/iUM_moisture_budget/output',
+        }
     }
 }
 
@@ -37,6 +42,11 @@ comp = computers['rdf-comp']
 for expt in expts:
     comp['dirs']['work_' + expt] = '/nerc/n02/n02/mmuetz/um10.5_runs/20day/iUM_moisture_budget_{}/work'.format(expt)
     comp['dirs']['results_' + expt] = '/nerc/n02/n02/mmuetz/omni_output/iUM_moisture_budget/results_{}'.format(expt)
+
+comp = computers['archer']
+for expt in expts:
+    comp['dirs']['work_' + expt] = '/home/n02/n02/mmuetz/nerc/um10.5_runs/20day/iUM_moisture_budget_{}/work'.format(expt)
+    comp['dirs']['results_' + expt] = '/home/n02/n02/mmuetz/nerc/omni_output/iUM_moisture_budget/results_{}'.format(expt)
 
 comp = computers['nxnode']
 for expt in expts:
