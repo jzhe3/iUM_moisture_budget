@@ -67,6 +67,7 @@ class PlotMoistProfile(PylabProcess):
                      label=label)
 
         self.plt.xlim((-10, 10))
+        self.plt.ylim((0, 15))
         self.plt.xlabel('(g kg$^{-1}$ day$^{-1}$)')
         self.plt.ylabel('Height (km)')
 
