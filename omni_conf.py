@@ -134,7 +134,7 @@ for expt in expts:
 	'process_kwargs': {'start_index': -24, 'end_index':None},
     }
 
-    surf_base_nodes = ['precip_ts', 'shf_ts', 'lhf_ts', 'precip_conv_ts']
+    surf_base_nodes = ['precip_ts', 'shf_ts', 'lhf_ts', 'evap_ts']
     surf_base_vars = ['precip', 'shf', 'lhf']
 
     groups['surf_timeseries_' + expt] = {
@@ -151,12 +151,12 @@ for expt in expts:
         'nodes': ['surf_ts_plots_' + expt],
     }
 
-    groups['surf_ts_means_' + expt] = {
-        'type': 'nodes_process',
-        'base_dir': 'output',
-        'batch': 'batch5',
-        'nodes': ['surf_ts_means_' + expt],
-    }
+    #groups['surf_ts_means_' + expt] = {
+    #    'type': 'nodes_process',
+    #    'base_dir': 'output',
+    #    'batch': 'batch5',
+    #    'nodes': ['surf_ts_means_' + expt],
+    #}
 
     for bn, bv in zip(surf_base_nodes, surf_base_vars):
 	nodes[bn + '_' + expt] = {
@@ -166,21 +166,21 @@ for expt in expts:
 	    'process': 'domain_mean',
 	}
 
-    nodes['precip_conv_ts_' + expt] = {
+    nodes['evap_ts_' + expt] = {
         'type': 'from_nodes',
-        'from_nodes': ['precip_ts_' + expt],
-        'process': 'convert_mass_to_energy_flux',
+        'from_nodes': ['lhf_ts_' + expt],
+        'process': 'convert_energy_to_mass_flux',
     }
     nodes['surf_ts_plots_' + expt] = {
         'type': 'from_nodes',
-        'from_nodes': ['precip_conv_ts_' + expt, 'shf_ts_' + expt, 'lhf_ts_' + expt],
-        'process': 'plot_sensitivity_surf_timeseries',
+        'from_nodes': ['precip_ts_' + expt, 'evap_ts_' + expt],
+        'process': 'plot_mass_flux_surf_timeseries',
     }
-    nodes['surf_ts_means_' + expt] = {
-        'type': 'from_nodes',
-        'from_nodes': ['precip_conv_ts_' + expt, 'shf_ts_' + expt, 'lhf_ts_' + expt],
-        'process': 'last_five_day_mean',
-    }
+    #nodes['surf_ts_means_' + expt] = {
+    #    'type': 'from_nodes',
+    #    'from_nodes': ['precip_conv_ts_' + expt, 'shf_ts_' + expt, 'lhf_ts_' + expt],
+    #    'process': 'last_five_day_mean',
+    #}
 
 
 variables = {
