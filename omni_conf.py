@@ -182,6 +182,7 @@ for expt in expts:
         'process': 'last_five_day_mean',
     }
 
+
 variables = {
     'q': {
 	'section': 0,
@@ -214,6 +215,22 @@ variables = {
     'lhf': {
         'section': 3,
         'item': 234,
+    },
+    'qcl': {
+	'section': 0,
+	'item': 254,
+    },
+    'qcf': {
+	'section': 0,
+	'item': 12,
+    },
+    'qrain': {
+	'section': 0,
+	'item': 272,
+    },
+    'qgraup': {
+	'section': 0,
+	'item': 273,
     },
 }
     
